@@ -1,0 +1,10 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: How to build the ZFS kernel module against a Ubuntu mainline kernel
+Upstream-Contact: Issues · 林博仁 Buo-ren, Lin / How to build the ZFS kernel module against a Ubuntu mainline kernel · GitLab <https://gitlab.com/brlin/ubuntu-mainline-kernel-with-zfs-howto/-/issues>
+Source: https://gitlab.com/brlin/ubuntu-mainline-kernel-with-zfs-howto
+
+Files:
+    *README.md
+    */README.md
+Copyright: Copyright 2024 林博仁(Buo-ren, Lin) <Buo.Ren.Lin@gmail.com>
+License: CC-BY-SA-4.0+ OR LicenseRef-Apache-2.0-If-Not-Used-In-Template-Projects
