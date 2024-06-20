@@ -93,3 +93,7 @@
 # Don't track ZFS source trees
 /zfs-*/
 
+# Don't track built Debian package and its metadata
+*.deb
+*.buildinfo
+*.changes
