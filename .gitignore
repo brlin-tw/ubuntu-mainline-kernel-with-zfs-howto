@@ -89,3 +89,7 @@
 
 # Don't track continuous integration virtual environments
 /continuous-integration/venv/
+
+# Don't track ZFS source trees
+/zfs-*/
+
