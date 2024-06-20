@@ -6,5 +6,7 @@ Source: https://gitlab.com/brlin/ubuntu-mainline-kernel-with-zfs-howto
 Files:
     *README.md
     */README.md
+    doc-assets/*
+    */doc-assets/*
 Copyright: Copyright 2024 林博仁(Buo-ren, Lin) <Buo.Ren.Lin@gmail.com>
 License: CC-BY-SA-4.0+ OR LicenseRef-Apache-2.0-If-Not-Used-In-Template-Projects

@@ -45,6 +45,7 @@ repos:
     rev: v3.0.2
     hooks:
       - id: reuse
+        exclude: '^zfs-[^/]+/.*$'
 
   # Check shell scripts with ShellCheck
   # NOTE: ShellCheck must be available in the command search PATHs

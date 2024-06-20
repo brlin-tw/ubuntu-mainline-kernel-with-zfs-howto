@@ -31,6 +31,12 @@ You can also use [the Mainline Kernels utility](https://github.com/bkw777/mainli
 
 This kernel will currently not be able to boot the system as it does not have the required driver to mount the root filesystem on the ZFS storage system.
 
+## Acquire a recent OpenZFS on Linux source archive
+
+You may acquire the source archive and the PGP signature required to verify the archive on the [OpenZFS on Linux](https://zfsonlinux.org/) website:
+
+![Screenshot of the OpenZFS Releases webpage, with the download link of the recent source archive and the PGP signature outlined by red](doc-assets/zfs-source-archive-download-page.png "Screenshot of the OpenZFS Releases webpage, with the download link of the recent source archive and the PGP signature outlined by red")
+
 ## Licensing
 
 Unless otherwise noted(individual file's header/[REUSE DEP5](.reuse/dep5)), this product is licensed under [the 4.0 International version of the Creative Commons Attribution-ShareAlike license](https://creativecommons.org/licenses/by-sa/4.0/), or any of its more recent versions of your preference.
