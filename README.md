@@ -75,6 +75,97 @@ You may acquire the source archive and the PGP signature required to verify the 
 
 ![Screenshot of the OpenZFS Releases webpage, with the download link of the recent source archive and the PGP signature outlined by red](doc-assets/zfs-source-archive-download-page.png "Screenshot of the OpenZFS Releases webpage, with the download link of the recent source archive and the PGP signature outlined by red")
 
+## Verify the authenticity of the OpenZFS source archive
+
+We can verify the authenticity of the OpenZFS source archive via the [Pretty Good Privacy(PGP)](https://en.wikipedia.org/wiki/Pretty_Good_Privacy) public key of the software publisher as well as the PGP signature files distributed along with the source archives.
+
+Run the following command to query the PGP public key that is used for the verification of the ZFS source archive:
+
+```bash
+zfs_version=2.2.4
+gpg_opts=(
+    --verify "zfs-${zfs_version}.tar.gz.asc" "zfs-${zfs_version}.tar.gz"
+)
+if ! gpg "${gpg_opts[@]}"; then
+    printf \
+        'Error: Unable to verify the authenticity of the ZFS source archive.\n' \
+        1>&2
+fi
+```
+
+, it should have the following similar output:
+
+```output
+gpg: Signature made Fri May  3 05:51:02 2024 CST
+gpg:                using RSA key 6AD860EED4598027
+gpg: Can't check signature: No public key
+Error: Unable to verify the authenticity of the ZFS source archive.
+```
+
+We can retrieve and import the PGP public key by running the following commands:
+
+```bash
+gpg_opts=(
+    --keyserver hkps://keyserver.ubuntu.com
+    --receive-keys 6AD860EED4598027
+)
+if ! gpg "${gpg_opts[@]}"; then
+    printf \
+        'Error: Unable to import the PGP public key from the keyserver.\n' \
+        1>&2
+fi
+```
+
+It should have the following output:
+
+```output
+gpg: key 6AD860EED4598027: public key "Tony Hutter (GPG key for signing ZFS releases) <hutter2@llnl.gov>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+```
+
+We can re-run the `gpg --verify` command to verify the authenticity of the OpenZFS source archive:
+
+```bash
+zfs_version=2.2.4
+gpg_opts=(
+    --verify "zfs-${zfs_version}.tar.gz.asc" "zfs-${zfs_version}.tar.gz"
+)
+if ! gpg "${gpg_opts[@]}"; then
+    printf \
+        'Error: Unable to verify the authenticity of the ZFS source archive.\n' \
+        1>&2
+fi
+```
+
+It should have the following similar output:
+
+```output
+gpg: Signature made Fri May  3 05:51:02 2024 CST
+gpg:                using RSA key 6AD860EED4598027
+gpg: Good signature from "Tony Hutter (GPG key for signing ZFS releases) <hutter2@llnl.gov>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 4F3B A9AB 6D1F 8D68 3DC2  DFB5 6AD8 60EE D459 8027
+```
+
+The `WARNING: This key is not certified with a trusted signature!` warning message indicates that the PGP web of trust trust chain cannot be created from your PGP keypairs(if available), which is an expected outcome for one without a complete web of trust infrastructure.  How to eliminate such problem is outside of the scope of this article.
+
+## Extract the OpenZFS source archive
+
+Run the following command to extract the OpenZFS source archive:
+
+```bash
+zfs_version=2.2.4
+tar_opts=(
+    --extract
+    --file "zfs-${zfs_version}.tar.gz"
+)
+if ! tar "${tar_opts[@]}"; then
+    printf 'The archive extraction has failed.\n' 1>&2
+fi
+```
+
 ## Licensing
 
 Unless otherwise noted(individual file's header/[REUSE DEP5](.reuse/dep5)), this product is licensed under [the 4.0 International version of the Creative Commons Attribution-ShareAlike license](https://creativecommons.org/licenses/by-sa/4.0/), or any of its more recent versions of your preference.
