@@ -166,6 +166,60 @@ if ! tar "${tar_opts[@]}"; then
 fi
 ```
 
+## Install build dependencies of OpenZFS
+
+We may use the equivs tool to build a metapackage for the OpenZFS's build dependencies, this allows us to cleanly remove all the unused dependencies after the tutorial.
+
+Run the following command as root to install the utility:
+
+```bash
+if ! apt install equivs; then
+    printf 'Error: Unable to install the equivs utility.\n' 1>&2
+fi
+```
+
+Then you can run the following command to build the metapackage:
+
+```bash
+if ! equivs-build zfs-build-deps.ctl; then
+    printf 'Error: The zfs-build-deps metapackage creation failed.\n' 1>&2
+fi
+```
+
+It should have the following output:
+
+```output
+dpkg-buildpackage: info: source package zfs-build-deps
+    ...stripped...
+dpkg-buildpackage: info: binary-only upload (no source included)
+
+The package has been created.
+Attention, the package has been created in the current directory,
+not in ".." as indicated by the message above!
+```
+
+**NOTE:** To remove the unused dependency packages after this tutorial, run the following commands _as root_:
+
+```bash
+if ! apt remove zfs-runtime-deps; then
+    printf \
+        'Error: Unable to remove the ZFS runtime dependencies metapackage.\n' \
+        1>&2
+fi
+if ! apt autoremove; then
+    printf \
+        'Error: Unable to remove the ununsed ZFS runtime dependencies packages.\n' \
+        1>&2
+fi
+```
+
+## References
+
+The following external materials are referenced during the writing of this article:
+
+* [equivs for DEBIAN](file:///usr/share/doc/equivs/README.Debian)  
+  Explains how to use the equivs utility to create metapackage for ZFS's build dependencies.
+
 ## Licensing
 
 Unless otherwise noted(individual file's header/[REUSE DEP5](.reuse/dep5)), this product is licensed under [the 4.0 International version of the Creative Commons Attribution-ShareAlike license](https://creativecommons.org/licenses/by-sa/4.0/), or any of its more recent versions of your preference.
