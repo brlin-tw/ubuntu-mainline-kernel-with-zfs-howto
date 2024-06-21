@@ -13,6 +13,44 @@ The AMDGPU driver shipped in the Ubuntu 24.04 kernel contains a issue that may c
 
 I would like to build the recent version ZFS kernel against the mainline kernel version to allow the system to boot without rebuilding the entire Linux kernel.
 
+## Acquire the project release archive
+
+This project provides a working directory with auxiliary files(referenced later as "the project working directory") to help you work with the tutorial.  Download the ubuntu-mainline-kernel-with-zfs-howto-_X_._Y_._Z_.tar.gz release package from [the Releases page](https://gitlab.com/brlin/ubuntu-mainline-kernel-with-zfs-howto/-/releases).
+
+## Launch a text terminal
+
+The following operations are necessary or recommended to be done in a text terminal application, launch the one of your preference.
+
+## Extract the project working directory
+
+Run the following command in the aforementioned terminal application to change the terminal working directory to the directory you wish to host the project working directory:
+
+```bash
+cd /path/to/workdir/hosting/dir
+```
+
+Then run the following command to extract the working directory:
+
+```bash
+tar_opts=(
+    --extract
+    --file /path/to/ubuntu-mainline-kernel-with-zfs-howto-_X_._Y_._Z_.tar.gz
+)
+if ! tar "${tar_opts[@]}"; then
+    printf 'Extract failed.\n' 1>&2
+fi
+```
+
+## Change the terminal working directory to the project working directory
+
+You may run the following command to switch the terminal working directory to the project working directory:
+
+```bash
+if ! cd ubuntu-mainline-kernel-with-zfs-howto-_X_._Y_._Z_; then
+    printf 'Working directory switch failed.\n' 1>&2
+fi
+```
+
 ## Install a mainline kernel
 
 Download the desired kernel package from the [Ubuntu Mainline Kernel PPA Archive Ubuntu https://kernel.ubuntu.com › ~kernel-ppa](https://kernel.ubuntu.com/~kernel-ppa/mainline/) and install it using the following terminal command as root:
